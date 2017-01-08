@@ -1,13 +1,15 @@
-#information for reviewers, course project 2
+#Information for reviewers, course project 2
 ##This repository contains: 
 
 * Six R codes to plot the six analysis asked in the assignment, they assume the PM2.5 Emissions dataset is installed in the working directory
 
 * Six png plots
 
+* The README with copy-paste of R codes and answers to the appropriate point in the peer assessment.
+
 ##Answers and Conclusions from PM2.5 emissions analysis
 
-All Questions need first to load the dataset:
+All Questions need first to load the dataset and install it in the working directory
 ```{r}
 #read data
 NEI <- readRDS("summarySCC_PM25.rds")
@@ -20,11 +22,12 @@ The R function aggregate gives directly the sum of all emissions ordered per yea
 ```{r}
 Emissions <- aggregate(NEI[, 'Emissions'], by=list(NEI$year), FUN=sum)
 ```
-We plot the result and observe the global decrease
+We plot the result 
 ```{r}
 plot(Emissions,type="l",xlab="years",ylab="USA total PM2.5 Emissions")
 ```
-!["The plot shows a global decrease for USA total PM2.5 Emissions between 1998 and 2008 "](plot1.png)
+The plot shows a global decrease for USA total PM2.5 Emissions between 1998 and 2008 
+![](plot1.png)
 
 
 ### Question 2:
@@ -40,11 +43,12 @@ The function aggregate gives directly the sum of all emissions ordered per year
 ```{r}
 Emissions2 <- aggregate(NEI2[, 'Emissions'], by=list(NEI2$year), FUN=sum)
 ```
-We plot the result and observe the global decrease
+We plot the result 
 ```{r}
 plot(Emissions2,type="l",xlab="years",ylab="Baltimore PM2.5 Emissions")
 ```
-!["The plot shows a global decrease for Baltimore global emission" ](plot2.png)
+The plot shows a global decrease for Baltimore global emission
+![](plot2.png)
 
 
 ### Question 3:
@@ -65,9 +69,9 @@ g<-ggplot(NEI2,aes(year,Emissions,color=type))
 g+geom_line(stat = "summary",fun.y="sum")+ labs(y="Baltimore PM2.5 Emissions per type source ",x="year")
 ##point type slightly increase and was responsible for all the emission increase, other type decrease
 ```
+The plot shows that the "point" type slightly increases between 1998 and 2008 and was responsible for all the emission increase, while other types decrease 
 
-
-!["The plot shows that the "point" type slightly increases between 1998 and 2008 and was responsible for all the emission increase, while other types decrease" ](plot3.png)
+![](plot3.png)
 
 
 
@@ -94,12 +98,13 @@ The function aggregate gives directly the sum of all emissions ordered per year
 ```{r}
 Sumcombustion <- aggregate(Emissions ~ year, data=combustion, FUN=sum)
 ```
-We plot coal emissions by type using ggplot, a global decrease is observed
+We plot coal emissions by type using ggplot.
 ```{r}
 g<-ggplot(Sumcombustion,aes(year,Emissions))
 g+geom_bar(stat = "identity",width=0.5)+ labs(y="Total Coal Combustion emission in USA ",x="year")
 ```
-!["The plot shows a global decrease in total coal combustion emission in USA between 1998 and 2008" ](plot4.png)
+The plot shows a global decrease in total coal combustion emission in USA between 1998 and 2008
+![ ](plot4.png)
 
 
 
@@ -123,13 +128,13 @@ The function aggregate gives directly the sum of all emissions ordered per year
 ```{r}
 SumvehicleBaltimore <- aggregate(Emissions ~ year, data=vehicleBaltimore, FUN=sum)
 ```
-We plot vehicle emissions in Baltimore by type using ggplot, a global decrease is observed
+We plot vehicle emissions in Baltimore by type using ggplot.
 ```{r}
 g<-ggplot(SumvehicleBaltimore,aes(year,Emissions))
 g+geom_bar(stat = "identity",width=0.5)+ labs(y="Vehicle emission in Baltimore ",x="year")
 ```
-
-!["The plot shows a global decrease of Baltimore vehicle emission" ](plot5.png)
+The plot shows a global decrease of Baltimore vehicle emission
+![ ](plot5.png)
 ### Question 6:
 Compare emissions from motor vehicle sources in Baltimore City with emissions from motor vehicle sources in Los Angeles County, California (fips == "06037"). Which city has seen greater changes over time in motor vehicle emissions?
 ### Answer
@@ -165,5 +170,6 @@ g+geom_bar(stat = "identity",width=0.5) +
   facet_grid(town ~ ., scales="free") + 
   labs(y="Vehicle emission in LA and Baltimore ",x="year")
 ```
-!["The plot shows a quasi constant relative variation between 1998 and 2008 in LA vehicle emission, Baltimore has the greatest variation" ](plot6.png)
+The plot shows a quasi constant relative variation between 1998 and 2008 in LA vehicle emission, Baltimore has the greatest variation
+![ ](plot6.png)
 
